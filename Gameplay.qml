@@ -13,6 +13,10 @@ GridLayout {
     columnSpacing: 0
     rowSpacing: 0
 
+    function newGame(){
+
+    }
+
     Repeater{
 
         id:bricks

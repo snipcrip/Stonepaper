@@ -9,6 +9,7 @@ Window {
     visible: true
     minimumWidth: 360
     maximumWidth: 360
+     width: 360
 
     minimumHeight: cl.height
     maximumHeight: cl.height
@@ -28,8 +29,8 @@ Window {
         Toolbar{
             id:toolbar
 
-//            onNewGame: gameplay.newGame()
-//            onQuitApp: Qt.quit()
+           onNewGame: gameplay.newGame()
+           onQuitApp: Qt.quit()
         }
     }
 }

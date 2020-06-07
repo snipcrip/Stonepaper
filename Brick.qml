@@ -14,9 +14,9 @@ Rectangle{
 
         source: "qrc:/Image/icons8---60.png"
         visible: number == 1 
-        
+
         }
-        
+
     Image {
         id: img2
 
@@ -35,5 +35,6 @@ Rectangle{
         source: "qrc:/Image/icons8---60 (1).png"
         visible: number == 4
     }
-    
+
 }
+

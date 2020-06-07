@@ -28,8 +28,8 @@ Window {
         Toolbar{
             id:toolbar
 
-//            onNewGame: gameplay.newGame()
-//            onQuitApp: Qt.quit()
+            onFindGame: gameplay.findGame()
+            onQuitApp: Qt.quit()
         }
     }
 }

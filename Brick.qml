@@ -1,9 +1,10 @@
 import QtQuick 2.0
 
 Rectangle{
+
     width: 60; height: 60
 
-    color: "red"
+    color: "darkgrey"
     border.width: 1
     border.color: "black"
 

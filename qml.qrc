@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Gameplay.qml</file>
+        <file>Toolbar.qml</file>
+        <file>Brick.qml</file>
+    </qresource>
+    <qresource prefix="/Image">
+        <file>icons8---60 (1).png</file>
+        <file>icons8---60 (2).png</file>
+        <file>icons8--60.png</file>
+        <file>icons8---60.png</file>
+    </qresource>
+</RCC>

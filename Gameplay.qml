@@ -4,23 +4,30 @@ import QtQuick.Layouts 1.12
 GridLayout {
     id:gl
 
+//    signal updateGame()
+
     width: 360
     height: 360
 
-    columns: 10
-    rows: 10
+    columns: 6
+    rows: 6
 
     columnSpacing: 0
     rowSpacing: 0
 
-    function newGame(){
 
+    function findGame() {
+        helper.findGame()
+    }
+
+    function updateGame() {
+        console.log("upppppdate!");
     }
 
     Repeater{
 
         id:bricks
-        model:60
+        model:36
 
         Brick {
 

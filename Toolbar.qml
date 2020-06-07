@@ -1,25 +1,25 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.12
+import QtQuick 2.12
 import QtQuick.Layouts 1.12
+import QtQuick.Controls 2.12
 
 RowLayout {
-
     id: rl
-    signal newGame()
+    signal findGame()
     signal quitApp()
 
-    Button{
-        id:quitButton
-        text: "Quit"
-        onClicked: quitApp()
+    Button {
+        id: newGameButton
 
-        x:300
-        y:300
+        text: "New Game"
+        onClicked: {
+            findGame()
+        }
     }
 
-    Button{
-        id:newButton
-        text: "New Game"
-        onClicked: newGame()
+    Button {
+        id: quitButton
+
+        text: "Quit"
+        onClicked: quitApp()
     }
 }

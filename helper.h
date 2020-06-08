@@ -29,6 +29,7 @@ class Helper : public QObject
     signals:
         void finished(QNetworkReply *);
         void updateGame();
+        void sendToQml(QVector <QVector<int> > brickss);
 
     public slots:
         QVector<int> findGame();

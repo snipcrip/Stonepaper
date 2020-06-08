@@ -71,9 +71,18 @@ void Helper::sockReady() {
                 qDebug() << "find";
             }
             else if (doc.object().value("type").toString() == "game") {
-                qDebug() << "game";
-                QJsonArray docAr = doc.object().value("fields").toArray();
-                qDebug() << docAr;
+                QJsonArray docAr = doc.object().value("field").toArray();
+                QVector < QVector <int> > brickss;
+
+                for (int i = 0; i < 6; i++) {
+                    QVector <int> _;
+                    brickss.append(_);
+                    for (int j = 0; j < 6; j++) {
+                        brickss[i].append(docAr[i].toArray()[j].toInt());
+                    }
+                }
+                emit sendToQml(brickss);
+                //update here
 
             }
 

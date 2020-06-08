@@ -14,7 +14,7 @@ Rectangle{
     border.width: 1
     border.color: "black"
 
-    property int number: 1
+    property int number: 0
     property int name: 5
 
     Image {
@@ -25,7 +25,7 @@ Rectangle{
 
         anchors.centerIn: parent
         source: "qrc:/Image/icons8---60.png"
-        visible: number == 1 
+        visible: number == 2
 
         }
 
@@ -37,7 +37,7 @@ Rectangle{
 
         anchors.centerIn: parent
         source: "qrc:/Image/icons8--60.png"
-        visible:number == 2
+        visible:number == 1
 
         }
 
@@ -70,9 +70,9 @@ Rectangle{
 
         anchors.centerIn: parent
         source: "qrc:/Image/icons8--60.png"
-        visible: name == 5
+        visible: number >= 1
 
-        }
+    }
 
     MouseArea{
         hoverEnabled: true

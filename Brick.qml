@@ -9,6 +9,11 @@ Rectangle{
     border.color: "black"
 
     property int number: 0
+    property bool light: false
+
+    function backlight() {
+        light = true
+    }
 
     Image {
         id: img1
@@ -16,7 +21,7 @@ Rectangle{
         source: "qrc:/Image/icons8---60.png"
         visible: number == 1 
 
-        }
+    }
 
     Image {
         id: img2
@@ -36,6 +41,12 @@ Rectangle{
         source: "qrc:/Image/icons8---60 (1).png"
         visible: number == 4
     }
-
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            backlight()
+            light()
+        }
+    }
 }
 

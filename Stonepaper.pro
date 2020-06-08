@@ -36,5 +36,4 @@ DISTFILES +=
 FORMS +=
 
 HEADERS += \
-    form.h \
     helper.h

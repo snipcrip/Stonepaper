@@ -11,6 +11,7 @@ GridLayout {
     columnSpacing: 0
     rowSpacing: 0
 
+    property int light
     columns: 6
     rows: 6
 
@@ -57,6 +58,54 @@ GridLayout {
         }
 //        console.log(bricks.itemAt(4).itemAt(4).number = 2)
         console.log("upppppdate!")
+    }
+
+    function neighbor (){
+        var x, y
+        var flag, xx, yy
+        for (var i = 0; i < bricks.count; i++) {
+            for (var j = 0; j < bricks.itemAt(i).count; j++) {
+                if (bricks.itemAt(i).itemAt(j).light == 3){
+                    flag = 1; xx = i; yy =j
+                }
+
+                else if (bricks.itemAt(i).itemAt(j).light == 1){
+                    x = i; y = j
+                }
+
+            }
+        }
+
+        if (flag == 1){
+            helper.update()
+        }
+
+        if ((x - 1 >= 0) && (x - 1 < bricks.count) && ( y >= 0) && ( y < bricks.count)){
+
+            var k = bricks.itemAt(x-1).itemAt(y)
+            if (!((k >= 2) && (k <= 4)))
+            bricks.itemAt(x-1).itemAt(y).light = 2
+        }
+
+
+        if ((x + 1 >= 0) && (x + 1 < bricks.count) && ( y >= 0) && ( y < bricks.count)){
+           var k = bricks.itemAt(x+1).itemAt(y)
+           if ( !((k >= 2) && (k <= 4)))
+           bricks.itemAt(x+1).itemAt(y).light = 2
+        }
+        if (!((k >= 2) && (k <= 4)) && (x  >= 0) && (x  < bricks.count) && ( y - 1 >= 0) && ( y - 1 < bricks.count)){
+
+            var k = bricks.itemAt(x).itemAt(y-1)
+            if ( !((k >= 2) && (k <= 4)))
+            bricks.itemAt(x).itemAt(y-1).light = 2
+
+        }
+        if (!((k >= 2) && (k <= 4)) && (x  >= 0) && (x  < bricks.count) && ( y + 1 >= 0) && ( y + 1 < bricks.count)){
+
+            var k = bricks.itemAt(x).itemAt(y+1)
+            if ( !((k >= 2) && (k <= 4)))
+            bricks.itemAt(x).itemAt(y+1).light = 2
+        }
     }
 
     Repeater {

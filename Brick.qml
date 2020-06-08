@@ -7,15 +7,22 @@ Rectangle{
 
     color: "#fcec5b"
 
+ function colorit(){
+    if (light == 2 ) color = "green"
+    if (light == 1 ) color = "gray"
+
+}
     property int previousX
     property int previousY
+    property int light
+
 
 
     border.width: 1
     border.color: "black"
 
     property int number: 0
-    property int name: 5
+
 
     Image {
         id: img1
@@ -79,6 +86,7 @@ Rectangle{
         anchors.fill: brick
 
         onEntered: {
+
             //Запоминаем позиции
             previousX = brick.x
             previousY = brick.y
@@ -86,14 +94,27 @@ Rectangle{
             console.log(previousX)
             console.log(previousY)
             brick.color = "#baa804"
-        }
-       onExited: brick.color = "#fcec5b"
 
-       onPressed: brick.color = "Yellow"
-       onReleased: brick.color = "#fcec5b"
+        }
+        onClicked: {
+
+            if (light == 2){
+                light = 3
+            }
+
+            else if (number > 1){
+                light = 1
+            }
+
+            neighbor()
+            colorit()
+
+        }
+
+        onExited: brick.color = "#fcec5b"
+
+//       onPressed: brick.color = "Yellow"
+//       onReleased: brick.color = "#fcec5b"
 
     }
 }
-
-
-

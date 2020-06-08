@@ -6,15 +6,13 @@ GridLayout {
 
 //    signal updateGame()
 //    void sendToQml(QVector <int> bricks);
-
     width: 480
     height: 480
+    columnSpacing: 0
+    rowSpacing: 0
 
     columns: 6
     rows: 6
-
-    columnSpacing: 0
-    rowSpacing: 0
 
     Connections {
         target: helper // Указываем целевой объект для соединения
@@ -61,16 +59,15 @@ GridLayout {
         console.log("upppppdate!")
     }
 
-    Repeater{
+    Repeater {
         id:bricks
+
         model:6
         Repeater {
-            model: 6
-
+            model:6
             Brick {
 
             }
         }
     }
-
 }

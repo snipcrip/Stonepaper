@@ -7,8 +7,8 @@ Window {
     id:w
 
     visible: true
-    minimumWidth: 360
-    maximumWidth: 360
+    minimumWidth: 480
+    maximumWidth: 480
 
     minimumHeight: cl.height
     maximumHeight: cl.height
@@ -19,7 +19,7 @@ Window {
         id: cl
 
         anchors.centerIn: w.contentItem
-        spacing: 2
+        spacing: 0.5
 
         Gameplay{
             id:gameplay

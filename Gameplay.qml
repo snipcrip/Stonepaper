@@ -6,8 +6,8 @@ GridLayout {
 
 //    signal updateGame()
 
-    width: 360
-    height: 360
+    width: 480
+    height: 480
 
     columns: 6
     rows: 6
@@ -27,12 +27,13 @@ GridLayout {
     Repeater{
 
         id:bricks
-        model:36
+        model:6
+        Repeater {
+            model: 6
+            Brick {
 
-        Brick {
-
+            }
         }
-
     }
 
 }

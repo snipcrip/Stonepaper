@@ -8,21 +8,19 @@ Rectangle{
     color: "#fcec5b"
 
  function colorit(){
-    if (light == 2 ) color = "green"
-    if (light == 1 ) color = "gray"
-
+    if ( light == 0 ) color = "#fcec5b"
+    if ( light == 2 ) color = "#edd605"
+    if ( light == 1 ) color = "#baa804"
+    if ( light == 3 ) color = "#fcec5b"
 }
     property int previousX
     property int previousY
     property int light
 
-
-
     border.width: 1
     border.color: "black"
 
-    property int number: 1
-
+    property int number: 4
 
     Image {
         id: img1
@@ -85,17 +83,18 @@ Rectangle{
         hoverEnabled: true
         anchors.fill: brick
 
-        onEntered: {
+//        onEntered: {
 
-            //Запоминаем позиции
-            previousX = brick.x
-            previousY = brick.y
+//            //Запоминаем позиции
+//            previousX = brick.x
+//            previousY = brick.y
 
-            console.log(previousX)
-            console.log(previousY)
-            brick.color = "#baa804"
+//            console.log(previousX)
+//            console.log(previousY)
+//            brick.color = "#baa804"
 
-        }
+//        }
+
         onClicked: {
 
             if (light == 2){
@@ -110,11 +109,6 @@ Rectangle{
             colorit()
 
         }
-
-        onExited: brick.color = "#fcec5b"
-
-//       onPressed: brick.color = "Yellow"
-//       onReleased: brick.color = "#fcec5b"
-
     }
+
 }

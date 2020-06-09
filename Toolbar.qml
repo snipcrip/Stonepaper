@@ -7,6 +7,7 @@ RowLayout {
     signal findGame()
     signal quitApp()
 
+    spacing: -0.5
     Button {
         id: newGameButton
         Layout.fillHeight: true
@@ -14,13 +15,15 @@ RowLayout {
 
        contentItem: Text {
 
+           horizontalAlignment: Text.AlignHCenter
+           verticalAlignment: Text.AlignVCenter
            font.pointSize: 15
            text: "New Game"
            color: newGameButton.pressed ? "#646b63" : "#ffe15c"
        }
 
        background: Rectangle {
-           color: newGameButton.pressed ? "#ffe15c" : "#646b63"
+           color: newGameButton.pressed ? "#343834" : "#646b63"
            border.color: newGameButton.pressed ? "#646b63" : "black"
            border.width: 2
            radius: 0
@@ -40,6 +43,8 @@ RowLayout {
 
         contentItem: Text {
 
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
             font.pointSize: 15
             text: "Quit"
             color: quitButton.pressed ? "#646b63" : "#ffe15c"
@@ -47,7 +52,7 @@ RowLayout {
 
         background: Rectangle {
 
-            color: quitButton.pressed ? "#ffe15c" : "#646b63"
+            color: quitButton.pressed ? "#343834" : "#646b63"
             border.color: quitButton.pressed ? "#646b63" : "black"
             border.width: 2
             radius: 0

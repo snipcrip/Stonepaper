@@ -115,6 +115,7 @@ Rectangle{
 
             colorit()
             neighbor()
+            results()
 
         }
 

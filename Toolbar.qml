@@ -36,8 +36,6 @@ RowLayout {
         onClicked: {
           newGameButton.enabled = false
           findGame()
-          results()
-
         }
     }
 
@@ -50,7 +48,7 @@ RowLayout {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             font.pointSize: 15
-            text: "Exit "
+            text: "Leave the game "
             color: exitButton.pressed ? "#646b63" : "#ffe15c"
         }
         background: Rectangle {

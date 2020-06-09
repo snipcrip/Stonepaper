@@ -5,14 +5,30 @@ import copy
 
 clients = []
 fields = {}
-fields_player = {}
+fields_players = {}
 games = {}
 
-def game(data, transport):
-    pass
 
-def close_game(data, transport):
-    pass
+
+
+
+def close_game(data, player1):
+    data = json.dumps({"type":"disconnect"}).encode()
+    if len(clients) and clients[0] == player1:
+        clients.clear()
+        player1.write(data)
+    else:    
+        num, player2 = games[player1]
+        
+        if num == 1:
+            player1, player2 = player2, player1
+            
+        fields[(player1, player2)].clear()
+        fields_players[(player1, player2)].clear()
+        del games[player1]
+        del games[player2]
+        player1.write(data)
+        player2.write(data)
 
 def generate_field():
     field = []
@@ -58,30 +74,111 @@ def generate_field():
     return field, field_player
 
 def start_game(data, player1, player2):
-    games[player1] = (1, player2) 
-    games[player2] = (2, player1)
+    games[player1] = (2, player2) 
+    games[player2] = (1, player1)
 
     field, field_player = generate_field()
 
-    fields[(player1, player2)] = field
-    fields_player[(player1, player2)] = field_player
+    # fields[(player1, player2)] = field
+    # fields_players[(player1, player2)] = field_player
 
     return field, field_player
 
+def reverse(field, field_player):
+    field[0][:], field[1][:], field[2][:], field[3][:], field[4][:], field[5][:] = \
+            field[5][:], field[4][:], field[3][:], field[2][:], field[1][:], field[0][:]
+    field_player[0][:], field_player[1][:], field_player[2][:], field_player[3][:], field_player[4][:], field_player[5][:] = \
+        field_player[5][:], field_player[4][:], field_player[3][:], field_player[2][:], field_player[1][:], field_player[0][:]
+    return field, field_player
+
 def field_transform(field, field_player, player):
-    print(field, "\n", field_player, '\n', player)
+    # print(field, "\n", field_player, '\n', player)
     for row in range(6):
         for col in range(6):
             if field_player[row][col] != player and field_player[row][col] != 0:
                 field[row][col] = 1
     
     if player == 2:
-        field[0][:], field[1][:], field[2][:], field[3][:], field[4][:], field[5][:] = \
-            field[5][:], field[4][:], field[3][:], field[2][:], field[1][:], field[0][:]
-        field_player[0][:], field_player[1][:], field_player[2][:], field_player[3][:], field_player[4][:], field_player[5][:] = \
-            field_player[5][:], field_player[4][:], field_player[3][:], field_player[2][:], field_player[1][:], field_player[0][:]
+        field, field_player = reverse(field, field_player)
+        
 
     return {"type":"start game", "field":field, "field_player":field_player}
+
+
+def data_complete(field, field_player, transport1, transport2):
+
+        print(field)
+        print(field_player)
+        print()
+        fields[(transport1, transport2)] = field
+        fields_players[(transport1, transport2)] = field_player
+
+        field1 = copy.deepcopy(field)
+        field2 = copy.deepcopy(field)
+
+        data1 = json.dumps(field_transform(field1, copy.deepcopy(field_player), 1)).encode()
+        data2 = json.dumps(field_transform(field2, copy.deepcopy(field_player), 2)).encode()
+
+        transport1.write(data1)
+        transport2.write(data2)
+
+
+def game(data, player1):
+    num, player2 = games[player1]
+    print(num, player2)
+
+    move_player = num % 2 + 1
+    print(move_player)
+
+    if num == 1:
+        print("swap")
+        player1, player2 = player2, player1
+        
+    field = fields[(player1, player2)]
+    field_player = fields_players[(player1, player2)]
+
+    # print("fafefaefwaf", field_player)
+    if num == 2:        
+        move_from = (5 - data["move from"][0], data["move from"][1])
+        move_to = (5 - data["move to"][0], data["move to"][1])
+    else:
+        move_from = data["move from"]
+        move_to = data["move to"]
+    # move_player = data["move_player"]
+
+
+    value_from = field[move_from[0]][move_from[1]] 
+    value_to = field[move_to[0]][move_to[1]]
+
+    if value_from - 1 == value_to:
+        field[move_from[0]][move_from[1]] = 0
+        field_player[move_from[0]][move_from[1]] = 0
+
+        field[move_to[0]][move_to[1]] = value_from
+        field_player[move_to[0]][move_to[1]] = move_player
+    elif value_to - 1 == value_from:
+        field[move_from[0]][move_from[1]] = 0
+        field_player[move_from[0]][move_from[1]] = 0
+    elif value_from == 4 and value_to == 2:
+        field[move_from[0]][move_from[1]] = 0
+        field_player[move_from[0]][move_from[1]] = 0
+    elif value_from == 2 and value_to == 4:
+        field[move_from[0]][move_from[1]] = 0
+        field_player[move_from[0]][move_from[1]] = 0
+
+        field[move_to[0]][move_to[1]] = value_from
+        field_player[move_to[0]][move_to[1]] = move_player
+    elif value_from == value_to:
+        pass
+    else:
+        field[move_from[0]][move_from[1]] = 0
+        field_player[move_from[0]][move_from[1]] = 0
+
+        field[move_to[0]][move_to[1]] = value_from
+        field_player[move_to[0]][move_to[1]] = move_player
+
+    data_complete(field, field_player, player1, player2)
+
 
 def find_game(data, transport):
     if clients:
@@ -89,24 +186,20 @@ def find_game(data, transport):
         clients.clear()
         field, field_player = start_game(data, transport1, transport)
 
-        field1 = copy.deepcopy(field)
-        field2 = copy.deepcopy(field)
-
-        data1 = json.dumps(field_transform(field1, field_player.copy(), 1)).encode()
-        data2 = json.dumps(field_transform(field2, field_player.copy(), 2)).encode()
-
-        transport1.write(data1)
-        transport.write(data2)
+        data_complete(field, field_player, transport1, transport)
     else:
         clients.append(transport)
         return {"type":"find game"}
 
 def process_data(data, transport):
+    print(data)
+    print()
     if data['type'] == "find game":
         find_game(data, transport)
     elif data['type'] == "game":
         game(data, transport)
-    elif data['type'] == "close_game":
+    elif data['type'] == "close_game" or data['type'] == "disconnect":
+        print("ohh")
         close_game(data, transport)
     # return json.dumps(data)
 
@@ -128,7 +221,10 @@ class ClientServerProtocol(asyncio.Protocol):
         # print(resp)
         # if resp:
         #     self.transport.write(resp.encode())
-
+    def connection_lost(self, data):
+        print("\nloooooooost\n")
+        print(data)
+        super()
 
 loop = asyncio.get_event_loop()
 

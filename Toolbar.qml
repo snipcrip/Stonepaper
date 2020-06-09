@@ -36,6 +36,8 @@ RowLayout {
         onClicked: {
           newGameButton.enabled = false
           findGame()
+          results()
+
         }
     }
 
@@ -57,6 +59,7 @@ RowLayout {
             border.color: exitButton.pressed ? "#646b63" : "black"
             border.width: 1.25
             radius: 0
+
         }
 
         onClicked:{

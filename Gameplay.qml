@@ -39,6 +39,21 @@ GridLayout {
         console.log("fiiind!");
     }
 
+    function win() {
+        dialogWin.visible = true
+        dialogWin.open()
+        toolbar.newGameButton.enabled = true
+    }
+
+    function lose(){
+        dialogLose.visible = true
+        dialogLose.open()
+    }
+
+//    function draw (){
+
+//    }
+
     function empty() {
         for (var i = 0; i < bricks.count; i++) {
             for (var j = 0; j < bricks.itemAt(i).count; j++) {
@@ -135,23 +150,28 @@ GridLayout {
     }
 
     function results(){
+        var dontmy = 0
+        var my = 0
+
         for (var i = 0; i < bricks.count; i++) {
             for (var j = 0; j < bricks.itemAt(i).count; j++) {
-               if (( bricks.itemAt(i).itemAt(j).number > 1 ) && (  bricks.itemAt(i).itemAt(j).number !== 1  )){
-                   dialogWin.visible = true
-                   dialogWin.open()
-               }
-
-               else if (!(( bricks.itemAt(i).itemAt(j).number >= 1 )) && (  bricks.itemAt(i).itemAt(j).number = 1  )){
-                   dialogLose.visible = true
-                   dialogLose.open()
-               }
-                else {
-                   draw.visible = true
-                   draw.open
-               }
+                if (bricks.itemAt(i).itemAt(j).number === 1){
+                    dontmy = dontmy + 1
+                }
+                if (bricks.itemAt(i).itemAt(j).number > 1){
+                    my = my + 1
+                }
             }
        }
+
+        console.log(my,dontmy )
+
+        if  ((my > 0) && (dontmy === 0 )) {
+            win()
+        } else if ((my === 0) && (dontmy > 0)){
+            lose()
+        }
+
     }
 
     Repeater {

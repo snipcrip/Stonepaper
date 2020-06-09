@@ -49,7 +49,7 @@ Window {
 
         Text {
             anchors.centerIn:dialogLose.contentItem
-            text: qsTr("YOU LOSE!!!")
+            text: qsTr("You lose...")
             font.pointSize: 15
             color: "red"
         }
@@ -76,7 +76,7 @@ Window {
 
         Text {
             anchors.centerIn:dialogWin.contentItem
-            text: qsTr("YOU WON !!! Uhuuuu")
+            text: qsTr("You won!!!")
             font.pointSize: 15
             color: "red"
         }

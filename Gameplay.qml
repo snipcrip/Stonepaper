@@ -39,18 +39,6 @@ GridLayout {
         console.log("fiiind!");
     }
 
-//    function light() {
-//        var brickConfigs = []
-
-//        for (var i = 0; i < bricks.count; i++) {
-//            brickConfigs.push(bricks.itemAt(i).config)
-//        }
-
-//        var brickLights = helper.light(brickConfigs)
-//        for (var i = 0; i < brickLights.length - 1; i++) {
-//            bricks.itemAt(i).light = brickLights[i];
-//        }
-//    }
     function empty() {
         for (var i = 0; i < bricks.count; i++) {
             for (var j = 0; j < bricks.itemAt(i).count; j++) {

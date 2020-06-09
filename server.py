@@ -27,8 +27,14 @@ def close_game(data, player1):
         fields_players[(player1, player2)].clear()
         del games[player1]
         del games[player2]
-        player1.write(data)
-        player2.write(data)
+        try:
+            player1.write(data)
+        except:
+            pass
+        try:
+            player2.write(data)
+        except:
+            pass
 
 def generate_field():
     field = []
@@ -181,7 +187,7 @@ def game(data, player1):
 
 
 def find_game(data, transport):
-    if clients:
+    if clients and clients[0] != transport:
         transport1 = clients[0]
         clients.clear()
         field, field_player = start_game(data, transport1, transport)
@@ -212,6 +218,9 @@ class ClientServerProtocol(asyncio.Protocol):
         # trans[self.transport] = len(clients)
         # print(len(server.sockets))
         # print(server.sockets[0])
+        # print(dir(self.transport))
+        print(self.transport._sock_fd)
+        # print(self.transport.get_extra_info())
         text = json.dumps({"type":"connect"})
         self.transport.write(text.encode())
 
@@ -223,7 +232,8 @@ class ClientServerProtocol(asyncio.Protocol):
         #     self.transport.write(resp.encode())
     def connection_lost(self, data):
         print("\nloooooooost\n")
-        print(data)
+        print()
+        close_game(data, self.transport)
         super()
 
 loop = asyncio.get_event_loop()
@@ -231,7 +241,7 @@ loop = asyncio.get_event_loop()
 
 coro = loop.create_server(
     ClientServerProtocol,
-    '127.0.0.1', 5555
+    "109.234.39.222", 6022
 )
 
 

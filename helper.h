@@ -11,6 +11,7 @@
 #include <QJsonDocument>
 #include <QJsonParseError>
 #include <QJsonArray>
+#include <QPair>
 
 
 class Helper : public QObject
@@ -28,15 +29,17 @@ class Helper : public QObject
 
     signals:
         void finished(QNetworkReply *);
-        void updateGame();
+
         void sendToQml(QVector <QVector<int> > brickss);
+        void empty();
 
     public slots:
         QVector<int> findGame();
+        void updateGame(int fromX, int fromY, int toX, int toY);
 //        QVector<bool> light(QVector<int> bricks);
         void sockReady();
         void sockDisc();
-        void update();
+//        void update();
 //        void replyFinished(QNetworkReply *pReply);
 
     private:

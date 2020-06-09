@@ -15,7 +15,7 @@ RowLayout {
        contentItem: Text {
 
            font.pointSize: 15
-           text: "New Game"
+           text: "Find Game"
            color: newGameButton.pressed ? "#646b63" : "#ffe15c"
        }
 
@@ -29,6 +29,7 @@ RowLayout {
 
         onClicked: {
             findGame()
+
         }
     }
 
@@ -53,7 +54,10 @@ RowLayout {
             radius: 0
         }
 
-        onClicked: quitApp()
+        onClicked: {
+            helper.sockDisc()
+            quitApp()
+        }
     }
 
     Shortcut{

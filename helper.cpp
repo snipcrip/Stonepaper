@@ -6,32 +6,56 @@ Helper::Helper(QObject *parent) : QObject(parent)
     socket = new QTcpSocket(this);
     connect(socket, SIGNAL(readyRead()), this, SLOT(sockReady()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(sockDisk()));
-    connect(socket, SIGNAL(updateGame()), this, SLOT(update()));
+//    connect(socket, SIGNAL(updateGame()), this, SLOT(update()));
 }
 
 
 QVector <int> Helper::findGame()
 {
 
-    socket->connectToHost("127.0.0.1", 5555);
+    socket->connectToHost("109.234.39.222", 6022);
     if (socket->waitForConnected(1000))
         qDebug("Connected!");
-    socket->write("{\"type\":\"find game\"}");
+
+    QJsonObject textObject;
+    textObject["type"] = "find game";
+
+    socket->write(QJsonDocument(textObject).toJson(QJsonDocument::Indented));
 
     QVector <int> bricks;
 
     qDebug() << "find!";
-//    socket->write("bricks");
     return bricks;
 }
 
 
 void Helper::sockDisc() {
+    qDebug() << "diskk";
+    QJsonObject textObject;
+    textObject["type"] = "disconnect";
+    socket->write(QJsonDocument(textObject).toJson(QJsonDocument::Indented));
+    socket->waitForBytesWritten(1000);
+    emit empty();
+
     socket->deleteLater();
 }
 
-void Helper::update() {
+void Helper::updateGame(int fromX, int fromY, int toX, int toY) {
+    QJsonObject textObject;
+
+    QJsonArray textsArray;
+    textsArray.append(fromX);
+    textsArray.append(fromY);
+    textObject["move from"] = textsArray;
+
+    textsArray[0] = toX;
+    textsArray[1] = toY;
+    textObject["move to"] = textsArray;
+
+    textObject["type"] = "game";
+
     qDebug() << " update )))))";
+    socket->write(QJsonDocument(textObject).toJson(QJsonDocument::Indented));
 
 }
 
@@ -84,6 +108,12 @@ void Helper::sockReady() {
                 emit sendToQml(brickss);
                 //update here
 
+            }
+            else if (doc.object().value("type").toString() == "disconnect") {
+
+                emit empty();
+                socket->close();
+//                socket->deleteLater();
             }
 
         }

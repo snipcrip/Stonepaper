@@ -27,11 +27,15 @@ GridLayout {
             console.log(brickss);
             gl.updateGame(brickss)
         }
+        onEmpty: {
+            gl.empty()
+        }
     }
 
     function findGame() {
 
         helper.findGame()
+        colorNull()
         console.log("fiiind!");
     }
 
@@ -47,6 +51,15 @@ GridLayout {
 //            bricks.itemAt(i).light = brickLights[i];
 //        }
 //    }
+    function empty() {
+        for (var i = 0; i < bricks.count; i++) {
+            for (var j = 0; j < bricks.itemAt(i).count; j++) {
+                bricks.itemAt(i).itemAt(j).light = 0
+                bricks.itemAt(i).itemAt(j).color = "#fcec5b"
+                bricks.itemAt(i).itemAt(j).number = 0
+            }
+        }
+    }
 
     function updateGame(brickss) {
         for (var i = 0; i < bricks.count; i++) {
@@ -60,51 +73,76 @@ GridLayout {
         console.log("upppppdate!")
     }
 
-    function neighbor (){
-        var x, y
-        var flag, xx, yy
+    function colorNull() {
         for (var i = 0; i < bricks.count; i++) {
             for (var j = 0; j < bricks.itemAt(i).count; j++) {
-                if (bricks.itemAt(i).itemAt(j).light == 3){
-                    flag = 1; xx = i; yy =j
+                bricks.itemAt(i).itemAt(j).light = 0
+                bricks.itemAt(i).itemAt(j).color = "#fcec5b"
+            }
+        }
+    }
+
+    function neighbor () {
+        var x, y
+        var flag = 0, xx, yy
+        for (var i = 0; i < bricks.count; i++) {
+            for (var j = 0; j < bricks.itemAt(i).count; j++) {
+                if (bricks.itemAt(i).itemAt(j).light === 3){
+                    flag = 1;
+                    xx = i;
+                    yy = j
                 }
 
-                else if (bricks.itemAt(i).itemAt(j).light == 1){
+                else if (bricks.itemAt(i).itemAt(j).light === 1){
                     x = i; y = j
                 }
 
             }
         }
+        var k;
+        if (flag === 1){
+            console.log("updateeeeeeeeee")
+            colorNull()
 
-        if (flag == 1){
-            helper.update()
-        }
+            helper.updateGame(x, y, xx, yy)
+        }        
+        else {
 
-        if ((x - 1 >= 0) && (x - 1 < bricks.count) && ( y >= 0) && ( y < bricks.count)){
+            if ((x - 1 >= 0) && (x - 1 < bricks.count) && ( y >= 0) && ( y < bricks.count)){
+//            console.log(x - 1, y)
 
-            var k = bricks.itemAt(x-1).itemAt(y)
-            if (!((k >= 2) && (k <= 4)))
-            bricks.itemAt(x-1).itemAt(y).light = 2
-        }
+            k = bricks.itemAt(x-1).itemAt(y).number
+            if (!((k >= 2) && (k <= 4))) {
+                bricks.itemAt(x-1).itemAt(y).light = 2
+                bricks.itemAt(x-1).itemAt(y).color = "green"
+            }
+            }
 
+            if ((x + 1 >= 0) && (x + 1 < bricks.count) && (y >= 0) && (y < bricks.count)){
+    //           console.log(x + 1, y)
+               k = bricks.itemAt(x+1).itemAt(y).number
+               if ( !((k >= 2) && (k <= 4))) {
+                    bricks.itemAt(x+1).itemAt(y).light = 2
+                    bricks.itemAt(x+1).itemAt(y).color = "green"
+               }
 
-        if ((x + 1 >= 0) && (x + 1 < bricks.count) && ( y >= 0) && ( y < bricks.count)){
-           var k = bricks.itemAt(x+1).itemAt(y)
-           if ( !((k >= 2) && (k <= 4)))
-           bricks.itemAt(x+1).itemAt(y).light = 2
-        }
-        if (!((k >= 2) && (k <= 4)) && (x  >= 0) && (x  < bricks.count) && ( y - 1 >= 0) && ( y - 1 < bricks.count)){
-
-            var k = bricks.itemAt(x).itemAt(y-1)
-            if ( !((k >= 2) && (k <= 4)))
-            bricks.itemAt(x).itemAt(y-1).light = 2
-
-        }
-        if (!((k >= 2) && (k <= 4)) && (x  >= 0) && (x  < bricks.count) && ( y + 1 >= 0) && ( y + 1 < bricks.count)){
-
-            var k = bricks.itemAt(x).itemAt(y+1)
-            if ( !((k >= 2) && (k <= 4)))
-            bricks.itemAt(x).itemAt(y+1).light = 2
+            }
+            if ((x >= 0) && (x < bricks.count) && (y - 1 >= 0) && (y - 1 < bricks.count)){
+    //            console.log(x, y - 1)
+                k = bricks.itemAt(x).itemAt(y-1).number
+                if ( !((k >= 2) && (k <= 4))) {
+                    bricks.itemAt(x).itemAt(y-1).light = 2
+                    bricks.itemAt(x).itemAt(y-1).color = "green"
+                }
+            }
+            if ((x >= 0) && (x < bricks.count) && (y + 1 >= 0) && (y + 1 < bricks.count)){
+    //            console.log(x, y + 1)
+                k = bricks.itemAt(x).itemAt(y+1).number
+                if ( !((k >= 2) && (k <= 4))) {
+                    bricks.itemAt(x).itemAt(y+1).light = 2
+                    bricks.itemAt(x).itemAt(y+1).color = "green"
+                }
+            }
         }
     }
 

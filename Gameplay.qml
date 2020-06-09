@@ -3,9 +3,11 @@ import QtQuick.Layouts 1.12
 
 GridLayout {
     id:gl
-
 //    signal updateGame()
 //    void sendToQml(QVector <int> bricks);
+
+    signal whoPlayer();
+
     width: 480
     height: 480
     columnSpacing: 0
@@ -25,11 +27,16 @@ GridLayout {
         onSendToQml: {
             console.log("brickssss");
             console.log(brickss);
-            gl.updateGame(brickss)
+            gl.updateGame(brickss);
+//            whoPlayer(player);
         }
         onEmpty: {
             gl.empty()
         }
+    }
+    function sockDisk() {
+        console.log("dissssk");
+        helper.sockDisc()
     }
 
     function findGame() {

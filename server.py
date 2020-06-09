@@ -6,6 +6,7 @@ import copy
 clients = []
 fields = {}
 fields_players = {}
+whose_move = {}
 games = {}
 
 
@@ -82,6 +83,7 @@ def generate_field():
 def start_game(data, player1, player2):
     games[player1] = (2, player2) 
     games[player2] = (1, player1)
+    whose_move[(player1, player2)] = 1
 
     field, field_player = generate_field()
 
@@ -97,7 +99,7 @@ def reverse(field, field_player):
         field_player[5][:], field_player[4][:], field_player[3][:], field_player[2][:], field_player[1][:], field_player[0][:]
     return field, field_player
 
-def field_transform(field, field_player, player):
+def field_transform(field, field_player, player, move_player):
     # print(field, "\n", field_player, '\n', player)
     for row in range(6):
         for col in range(6):
@@ -107,8 +109,12 @@ def field_transform(field, field_player, player):
     if player == 2:
         field, field_player = reverse(field, field_player)
         
+    if move_player == player:
+        move = "yes"
+    else:
+        move = "no"
 
-    return {"type":"start game", "field":field, "field_player":field_player}
+    return {"type":"start game", "field":field, "field_player":field_player, "move_player":move}
 
 
 def data_complete(field, field_player, transport1, transport2):
@@ -122,8 +128,8 @@ def data_complete(field, field_player, transport1, transport2):
         field1 = copy.deepcopy(field)
         field2 = copy.deepcopy(field)
 
-        data1 = json.dumps(field_transform(field1, copy.deepcopy(field_player), 1)).encode()
-        data2 = json.dumps(field_transform(field2, copy.deepcopy(field_player), 2)).encode()
+        data1 = json.dumps(field_transform(field1, copy.deepcopy(field_player), 1, whose_move[(transport1, transport2)])).encode()
+        data2 = json.dumps(field_transform(field2, copy.deepcopy(field_player), 2, whose_move[(transport1, transport2)])).encode()
 
         transport1.write(data1)
         transport2.write(data2)
@@ -135,11 +141,18 @@ def game(data, player1):
 
     move_player = num % 2 + 1
     print(move_player)
-
+    
+    
     if num == 1:
         print("swap")
         player1, player2 = player2, player1
         
+
+    if move_player != whose_move[(player1, player2)]:
+        return
+
+    whose_move[(player1, player2)] = move_player % 2 + 1
+
     field = fields[(player1, player2)]
     field_player = fields_players[(player1, player2)]
 

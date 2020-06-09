@@ -134,6 +134,26 @@ GridLayout {
         }
     }
 
+    function results(){
+        for (var i = 0; i < bricks.count; i++) {
+            for (var j = 0; j < bricks.itemAt(i).count; j++) {
+               if (( bricks.itemAt(i).itemAt(j).number > 1 ) && (  bricks.itemAt(i).itemAt(j).number !== 1  )){
+                   dialogWin.visible = true
+                   dialogWin.open()
+               }
+
+               else if (!(( bricks.itemAt(i).itemAt(j).number >= 1 )) && (  bricks.itemAt(i).itemAt(j).number = 1  )){
+                   dialogLose.visible = true
+                   dialogLose.open()
+               }
+                else {
+                   draw.visible = true
+                   draw.open
+               }
+            }
+       }
+    }
+
     Repeater {
         id:bricks
 

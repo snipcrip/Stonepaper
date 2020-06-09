@@ -103,7 +103,7 @@ Window {
 
         Text {
             anchors.centerIn:draw.contentItem
-            text: qsTr("Nobody won, it was a draw")
+            text: qsTr("Draw!!")
             font.pointSize: 15
             color: "red"
         }

@@ -39,6 +39,20 @@ GridLayout {
         console.log("fiiind!");
     }
 
+<<<<<<< HEAD
+//    function light() {
+//        var brickConfigs = []
+
+//        for (var i = 0; i < bricks.count; i++) {
+//            brickConfigs.push(bricks.itemAt(i).config)
+//        }
+
+//        var brickLights = helper.light(brickConfigs)
+//        for (var i = 0; i < brickLights.length - 1; i++) {
+//            bricks.itemAt(i).light = brickLights[i];
+//        }
+//    }
+=======
     function win() {
         dialogWin.visible = true
         dialogWin.open()
@@ -54,18 +68,7 @@ GridLayout {
 
 //    }
 
-//    function light() {
-//        var brickConfigs = []
-
-//        for (var i = 0; i < bricks.count; i++) {
-//            brickConfigs.push(bricks.itemAt(i).config)
-//        }
-
-//        var brickLights = helper.light(brickConfigs)
-//        for (var i = 0; i < brickLights.length - 1; i++) {
-//            bricks.itemAt(i).light = brickLights[i];
-//        }
-//    }
+>>>>>>> 0fbbcb666ed5737821a3797b24c8c16c57114499
     function empty() {
         for (var i = 0; i < bricks.count; i++) {
             for (var j = 0; j < bricks.itemAt(i).count; j++) {
@@ -168,22 +171,25 @@ GridLayout {
         for (var i = 0; i < bricks.count; i++) {
             for (var j = 0; j < bricks.itemAt(i).count; j++) {
                 if (bricks.itemAt(i).itemAt(j).number === 1){
-                    dontmy = dontmy + 1
+                    dontmy++
                 }
                 if (bricks.itemAt(i).itemAt(j).number > 1){
-                    my = my + 1
+                    mykind++
                 }
+
             }
        }
 
         console.log(my,dontmy )
 
         if  ((my > 0) && (dontmy === 0 )) {
-            win()
+            dialogWin.visible = true
+            dialogWin.open()
+            toolbar.newGameButton.enabled = true
         } else if ((my === 0) && (dontmy > 0)){
-            lose()
+            dialogLose.visible = true
+            dialogLose.open()
         }
-
     }
 
     Repeater {

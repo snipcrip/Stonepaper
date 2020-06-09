@@ -55,7 +55,12 @@ void Helper::updateGame(int fromX, int fromY, int toX, int toY) {
     textObject["type"] = "game";
 
     qDebug() << " update )))))";
-    socket->write(QJsonDocument(textObject).toJson(QJsonDocument::Indented));
+    if (socket->isOpen())
+        socket->write(QJsonDocument(textObject).toJson(QJsonDocument::Indented));
+    else {
+        qDebug() << "warning disc";
+        emit empty();
+    }
 
 }
 

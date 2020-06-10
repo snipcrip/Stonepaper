@@ -94,8 +94,10 @@ void Helper::sockReady() {
                     }
                 }
 
+
                 qDebug() << brickss;
 
+                emit whoPlayer(doc.object().value("move_player").toInt());
                 emit sendToQml(brickss);
                 qDebug() << "find";
             }
@@ -110,6 +112,7 @@ void Helper::sockReady() {
                         brickss[i].append(docAr[i].toArray()[j].toInt());
                     }
                 }
+                emit whoPlayer(doc.object().value("move_player").toInt());
                 emit sendToQml(brickss);
                 //update here
 

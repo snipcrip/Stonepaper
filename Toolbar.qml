@@ -6,10 +6,26 @@ RowLayout {
     id: rl
     signal findGame()
     signal quitApp()
+    signal sockDisk()
 
     spacing: 0
 
     property int who: 1
+
+    Connections {
+        target: helper // Указываем целевой объект для соединения
+        /* Объявляем и реализуем функцию, как параметр
+         * объекта и с имененем похожим на название сигнала
+         * Разница в том, что добавляем в начале on и далее пишем
+         * с заглавной буквы
+         * */
+        onWhoPlayer: {
+            who = player;
+        }
+    }
+//    function who_player(player) {
+//        rl.who = player
+//    }
 
     Button {
         id: newGameButton
@@ -63,8 +79,10 @@ RowLayout {
         }
 
         onClicked:{
-           newGameButton.enabled = true
-         //  helper.sockDisk()
+            sockDisk()
+//            helper.sockDisc()
+            newGameButton.enabled = true
+
        }
     }
 

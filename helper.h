@@ -31,6 +31,7 @@ class Helper : public QObject
         void finished(QNetworkReply *);
         void disconnected();
         void sendToQml(QVector <QVector<int> > brickss);
+        void whoPlayer(int player);
         void empty();
 
     public slots:

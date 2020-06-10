@@ -110,10 +110,11 @@ def field_transform(field, field_player, player, move_player):
         field, field_player = reverse(field, field_player)
         
     if move_player == player:
-        move = "yes"
+        move = 1
     else:
-        move = "no"
+        move = 0
 
+    print(move, player, move_player)
     return {"type":"start game", "field":field, "field_player":field_player, "move_player":move}
 
 

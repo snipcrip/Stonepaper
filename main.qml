@@ -138,7 +138,7 @@ Window {
 
 
         width:200
-        modal: true
+        modal:true
         height:150
         visible:false
         closePolicy: "CloseOnEscape" | "CloseOnPressOutside"
@@ -178,7 +178,7 @@ Window {
             anchors.centerIn:dialogWin.contentItem
             text: qsTr("You won!!!")
             font.pointSize: 15
-            color: "red"
+            color: "green"
         }
 
         onAccepted: {
@@ -188,7 +188,7 @@ Window {
     }
 
     Dialog {
-        id:draw
+        id:dialogDraw
 
 
         width:200
@@ -202,7 +202,7 @@ Window {
         standardButtons: Dialog.Ok
 
         Text {
-            anchors.centerIn:draw.contentItem
+            anchors.centerIn:dialogDraw.contentItem
             text: qsTr("Draw!!")
             font.pointSize: 15
             color: "red"

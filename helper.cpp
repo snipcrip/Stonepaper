@@ -82,25 +82,6 @@ void Helper::sockReady() {
 
                 qDebug() << "find";
             }
-            else if (doc.object().value("type").toString() == "start game") {
-                QJsonArray docAr = doc.object().value("field").toArray();
-                QVector < QVector <int> > brickss;
-
-                for (int i = 0; i < 6; i++) {
-                    QVector <int> _;
-                    brickss.append(_);
-                    for (int j = 0; j < 6; j++) {
-                        brickss[i].append(docAr[i].toArray()[j].toInt());
-                    }
-                }
-
-
-                qDebug() << brickss;
-
-                emit whoPlayer(doc.object().value("move_player").toInt());
-                emit sendToQml(brickss);
-                qDebug() << "find";
-            }
             else if (doc.object().value("type").toString() == "game") {
                 QJsonArray docAr = doc.object().value("field").toArray();
                 QVector < QVector <int> > brickss;
@@ -112,9 +93,16 @@ void Helper::sockReady() {
                         brickss[i].append(docAr[i].toArray()[j].toInt());
                     }
                 }
+
+
                 emit whoPlayer(doc.object().value("move_player").toInt());
                 emit sendToQml(brickss);
-                //update here
+
+                int status = doc.object().value("status").toInt(); //status game 0 - идет игра 1 - ничья 2 - проигрыш 3 - выйгрыш
+
+                emit statusGame(status);
+
+
 
             }
             else if (doc.object().value("type").toString() == "disconnect") {

@@ -33,6 +33,7 @@ class Helper : public QObject
         void sendToQml(QVector <QVector<int> > brickss);
         void whoPlayer(int player);
         void empty();
+        void statusGame(int status);
 
     public slots:
         QVector<int> findGame();

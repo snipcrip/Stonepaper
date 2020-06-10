@@ -39,7 +39,6 @@ GridLayout {
         console.log("fiiind!");
     }
 
-<<<<<<< HEAD
 //    function light() {
 //        var brickConfigs = []
 
@@ -52,7 +51,7 @@ GridLayout {
 //            bricks.itemAt(i).light = brickLights[i];
 //        }
 //    }
-=======
+
     function win() {
         dialogWin.visible = true
         dialogWin.open()
@@ -68,7 +67,6 @@ GridLayout {
 
 //    }
 
->>>>>>> 0fbbcb666ed5737821a3797b24c8c16c57114499
     function empty() {
         for (var i = 0; i < bricks.count; i++) {
             for (var j = 0; j < bricks.itemAt(i).count; j++) {
@@ -174,7 +172,7 @@ GridLayout {
                     dontmy++
                 }
                 if (bricks.itemAt(i).itemAt(j).number > 1){
-                    mykind++
+                    my++
                 }
 
             }

@@ -33,10 +33,12 @@ RowLayout {
 
        }
 
-        onClicked: {
-          newGameButton.enabled = false
-          findGame()
-        }
+       onClicked: {
+           newGameButton.enabled = false
+           findGame()
+           start.visible = true
+           start.open()
+       }
     }
 
     Button {

@@ -30,6 +30,16 @@ GridLayout {
         onEmpty: {
             gl.empty()
         }
+        onStatusGame: {
+            //status game 0 - идет игра 1 - ничья 2 - проигрыш 3 - выйгрыш
+            console.log(status)
+            if (status == 3)
+                gl.win()
+            else if (status == 2)
+                gl.lose()
+            else if (status == 1)
+                gl.draw()
+        }
     }
 
     function findGame() {
@@ -39,18 +49,10 @@ GridLayout {
         console.log("fiiind!");
     }
 
-//    function light() {
-//        var brickConfigs = []
-
-//        for (var i = 0; i < bricks.count; i++) {
-//            brickConfigs.push(bricks.itemAt(i).config)
-//        }
-
-//        var brickLights = helper.light(brickConfigs)
-//        for (var i = 0; i < brickLights.length - 1; i++) {
-//            bricks.itemAt(i).light = brickLights[i];
-//        }
-//    }
+    function sockDisk() {
+        colorNull()
+        helper.sockDisc()
+    }
 
     function win() {
         dialogWin.visible = true
@@ -58,14 +60,18 @@ GridLayout {
         toolbar.newGameButton.enabled = true
     }
 
-    function lose(){
+    function lose() {
         dialogLose.visible = true
         dialogLose.open()
+        toolbar.newGameButton.enabled = true
     }
 
-//    function draw (){
+    function draw() {
+        dialogDraw.visible = true
+        dialogDraw.open()
+        toolbar.newGameButton.enabled = true
+    }
 
-//    }
 
     function empty() {
         for (var i = 0; i < bricks.count; i++) {
@@ -162,33 +168,6 @@ GridLayout {
         }
     }
 
-    function results(){
-        var dontmy = 0
-        var my = 0
-
-        for (var i = 0; i < bricks.count; i++) {
-            for (var j = 0; j < bricks.itemAt(i).count; j++) {
-                if (bricks.itemAt(i).itemAt(j).number === 1){
-                    dontmy++
-                }
-                if (bricks.itemAt(i).itemAt(j).number > 1){
-                    my++
-                }
-
-            }
-       }
-
-        console.log(my,dontmy )
-
-        if  ((my > 0) && (dontmy === 0 )) {
-            dialogWin.visible = true
-            dialogWin.open()
-            toolbar.newGameButton.enabled = true
-        } else if ((my === 0) && (dontmy > 0)){
-            dialogLose.visible = true
-            dialogLose.open()
-        }
-    }
 
     Repeater {
         id:bricks

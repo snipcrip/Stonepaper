@@ -6,6 +6,9 @@ GridLayout {
 
 //    signal updateGame()
 //    void sendToQml(QVector <int> bricks);
+
+    signal enable()
+
     width: 480
     height: 480
     columnSpacing: 0
@@ -73,7 +76,10 @@ GridLayout {
     }
 
 
+
+
     function empty() {
+
         for (var i = 0; i < bricks.count; i++) {
             for (var j = 0; j < bricks.itemAt(i).count; j++) {
                 bricks.itemAt(i).itemAt(j).light = 0
@@ -81,6 +87,8 @@ GridLayout {
                 bricks.itemAt(i).itemAt(j).number = 0
             }
         }
+        enable()
+
     }
 
     function updateGame(brickss) {

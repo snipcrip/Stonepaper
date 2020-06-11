@@ -23,7 +23,7 @@ Window {
 
         Gameplay{
             id:gameplay
-
+            onEnable: toolbar.enable()
         }
         Toolbar{
             id:toolbar

@@ -23,9 +23,10 @@ RowLayout {
             who = player;
         }
     }
-//    function who_player(player) {
-//        rl.who = player
-//    }
+
+    function enable() {
+        newGameButton.enabled = true
+    }
 
     Button {
         id: newGameButton

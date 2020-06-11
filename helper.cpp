@@ -34,10 +34,11 @@ void Helper::sockDisc() {
     QJsonObject textObject;
     textObject["type"] = "disconnect";
     socket->write(QJsonDocument(textObject).toJson(QJsonDocument::Indented));
-    socket->waitForBytesWritten(1000);
+    socket->waitForBytesWritten(10000);
     emit empty();
 
-    socket->deleteLater();
+//    socket->deleteLater();
+//    socket->close();
 }
 
 void Helper::updateGame(int fromX, int fromY, int toX, int toY) {

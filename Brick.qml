@@ -87,17 +87,6 @@ Rectangle{
         hoverEnabled: true
         anchors.fill: brick
 
-//        onEntered: {
-
-//            //Запоминаем позиции
-//            previousX = brick.x
-//            previousY = brick.y
-
-//            console.log(previousX)
-//            console.log(previousY)
-//            brick.color = "#baa804"
-
-//        }
         onClicked: {
             if (light == 1) {
                 colorNull()
@@ -119,10 +108,6 @@ Rectangle{
 
         }
 
-//        onExited: brick.color = "#fcec5b"
-
-//       onPressed: brick.color = "Yellow"
-//       onReleased: brick.color = "#fcec5b"
 
     }
 }

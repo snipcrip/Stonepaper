@@ -176,7 +176,6 @@ GridLayout {
         Repeater {
             model:6
             Brick {
-
             }
         }
     }

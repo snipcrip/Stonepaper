@@ -123,7 +123,7 @@ GridLayout {
         }
         var k;
         if (flag === 1){
-            console.log("updateeeeeeeeee")
+//            console.log("updateeeeeeeeee")
             colorNull()
 
             helper.updateGame(x, y, xx, yy)

@@ -27,7 +27,7 @@ Window {
         }
         Toolbar{
             id:toolbar
-
+            onSockDisk: gameplay.sockDisk()
             onFindGame: gameplay.findGame()
             onQuitApp: Qt.quit()
         }

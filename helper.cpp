@@ -74,15 +74,15 @@ void Helper::sockReady() {
 
         if (docError.errorString().toInt() == QJsonParseError::NoError) {
 //            qDebug() << doc.object().value("type").toString();
-            if (doc.object().value("type").toString() == "connect") {
-                qDebug() << "connect";
-            }
-            else if (doc.object().value("type").toString() == "find game") {
-                QJsonArray docAr = doc.object().value("field").toArray();
+//            if (doc.object().value("type").toString() == "connect") {
+//                qDebug() << "connect";
+//            }
+//            else if (doc.object().value("type").toString() == "find game") {
+//                QJsonArray docAr = doc.object().value("field").toArray();
 
-                qDebug() << "find";
-            }
-            else if (doc.object().value("type").toString() == "game") {
+////                qDebug() << "find";
+//            }
+            if (doc.object().value("type").toString() == "game") {
                 QJsonArray docAr = doc.object().value("field").toArray();
                 QVector < QVector <int> > brickss;
 
@@ -98,8 +98,8 @@ void Helper::sockReady() {
                 emit whoPlayer(doc.object().value("move_player").toInt());
                 emit sendToQml(brickss);
 
-                int status = doc.object().value("status").toInt(); //status game 0 - идет игра 1 - ничья 2 - проигрыш 3 - выйгрыш
-
+                int status = doc.object().value("status_game").toInt(); //status game 0 - идет игра 1 - ничья 2 - проигрыш 3 - выйгрыш
+//                qDebug() << status;
                 emit statusGame(status);
 
 

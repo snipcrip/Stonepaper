@@ -28,7 +28,6 @@ class Helper : public QObject
 
 
     signals:
-        void finished(QNetworkReply *);
         void disconnected();
         void sendToQml(QVector <QVector<int> > brickss);
         void whoPlayer(int player);

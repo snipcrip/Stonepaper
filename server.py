@@ -102,12 +102,15 @@ def reverse(field, field_player):
 def field_transform(field, field_player, player, move_player):
     # print(field, "\n", field_player, '\n', player)
 
+    move_enemy = player % 2 + 1
     cnt = {1:{2:0, 3:0, 4:0}, 2:{2:0, 3:0, 4:0}}
     
+    print(field)
     for row in range(6):
         for col in range(6):
-            if field_player[row][col] != player and field_player[row][col] != 0:
+            if field_player[row][col] != 0:
                 cnt[field_player[row][col]][field[row][col]] += 1
+            if field_player[row][col] != player and field_player[row][col] != 0:            
                 field[row][col] = 1
     
     if player == 2:
@@ -117,24 +120,29 @@ def field_transform(field, field_player, player, move_player):
         move = 1
     else:
         move = 0
-
-    move_enemy = move_player % 2 + 1 
+ 
     
-    sum_player = sum(cnt[move_player].values())
+    print(cnt)
+    sum_player = sum(cnt[player].values())
     sum_enemy = sum(cnt[move_enemy].values())
 
     status = 0
+
+    print("sum ", sum_player, sum_enemy, "move ", player, move_enemy)
     if (sum_player > 0 and sum_enemy == 0):
+        # print(3)
         status = 3
     elif (sum_player == 0 and sum_enemy > 0):
         status = 2
+        # print(2)
     else:
-        for type_figure in cnt[move_player].keys():
-            if sum_player == cnt[move_player][type_figure] and sum_enemy == cnt[move_enemy][type_figure]:
+        for type_figure in cnt[player].keys():
+            if sum_player == cnt[player][type_figure] and sum_enemy == cnt[move_enemy][type_figure]:
                 status = 1
+                # print(1)
 
-
-    # print(move, player, move_player)
+    print(status)
+    # print(move, move_player, move_enemy)
     # type game!!!!!!!!!
     return {"type":"game", "field":field, "field_player":field_player, "move_player":move,
          "status_game":status} #status game 0 - идет игра 1 - ничья 2 - проигрыш 3 - выйгрыш
